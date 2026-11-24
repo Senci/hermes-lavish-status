@@ -10,4 +10,4 @@ Hermes Desktop status-bar badge for Lavish review pages that wait on you (a Herm
 - Desktop: polls every 10 s. Click opens the sessions board URL in the browser; the tooltip lists the
   waiting page titles.
 - Tests: `python3 -m unittest discover -s tests` in this directory.
-- Build: `sh scripts/rebuild.sh` in this directory rebuilds `desktop/plugin.js`.
+- Build: `sh scripts/rebuild.sh` in this directory installs the pinned esbuild and [hermes-plugin-ui-kit](https://www.npmjs.com/package/hermes-plugin-ui-kit) into `.build/` and rebuilds `desktop/plugin.js`.

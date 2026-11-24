@@ -8,8 +8,8 @@
 import { Codicon, STATUSBAR_AREAS, Tip } from '@hermes/plugin-sdk'
 import { createElement as h } from 'react'
 
-import { useBackend, useLiveQuery } from './kit/live.js'
-import { TONE, ui } from './kit/theme.js'
+import { useBackend, useLiveQuery } from 'hermes-plugin-ui-kit/live.js'
+import { TONE, ui } from 'hermes-plugin-ui-kit/theme.js'
 
 const ID = 'lavish-status'
 const POLL_MS = 10_000

@@ -2,7 +2,7 @@
 import { Codicon, STATUSBAR_AREAS, Tip } from "@hermes/plugin-sdk";
 import { createElement as h } from "react";
 
-// desktop/src/kit/live.js
+// .build/node_modules/hermes-plugin-ui-kit/src/live.js
 import { atom, host, queryClient, useQuery, useValue } from "@hermes/plugin-sdk";
 var POLL_FLOOR_MS = 15e3;
 var LIVE_SAFETY_MS = 6e4;
@@ -13,7 +13,7 @@ function useLiveQuery({ live = false, pollMs = POLL_FLOOR_MS, liveMs = LIVE_SAFE
   return useQuery({ ...query, refetchInterval: live ? liveMs : pollMs });
 }
 
-// desktop/src/kit/theme.js
+// .build/node_modules/hermes-plugin-ui-kit/src/theme.js
 var ui = (name) => `var(--ui-${name})`;
 var TONE = {
   text: ui("text-primary"),
