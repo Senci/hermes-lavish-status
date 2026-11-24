@@ -1,0 +1,9 @@
+{
+  "name": "lavish-status",
+  "label": "Lavish Status",
+  "description": "Open Lavish reviews that wait on the operator",
+  "icon": "Bell",
+  "version": "0.1.0",
+  "tab": { "path": "/lavish-status", "hidden": true },
+  "api": "plugin_api.py"
+}
