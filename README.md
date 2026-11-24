@@ -1,5 +1,7 @@
 # lavish-status
 
+![lavish-status](docs/assets/cover.jpg)
+
 Hermes Desktop status-bar badge for Lavish review pages that wait on you (a Hermes Desktop add-on for lavish-axi): a red
 `N block` and an orange `N decide`, hidden when both are 0 or when the summary is stale.
 
