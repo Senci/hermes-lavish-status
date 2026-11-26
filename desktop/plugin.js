@@ -46,7 +46,7 @@ function useSummary() {
   });
 }
 var openBoard = (url) => {
-  if (url) void window.hermesDesktop?.openExternal?.(url);
+  if (url) void api?.os.openExternal(url);
 };
 function Badge() {
   const { data } = useSummary();

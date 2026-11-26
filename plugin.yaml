@@ -1,5 +1,5 @@
 name: lavish-status
-version: "0.1.1"
+version: "0.1.2"
 manifest_version: 2
 description: Hermes Desktop status bar badge for the Lavish review pages that wait on the operator (block and decide counts), read from the lavish-kit summary file.
 author: Senad Ličina

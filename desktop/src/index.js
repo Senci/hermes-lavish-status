@@ -2,8 +2,7 @@
 // block and orange for decide, hidden when both are 0. Data comes from this package's backend
 // (dashboard/plugin_api.py) through ctx.rest. Click opens the sessions board in the browser.
 //
-// Source of desktop/plugin.js. Build: `npm ci && node tools/build/build-plugins.mjs --kit-only` at
-// the repo root.
+// Source of desktop/plugin.js. Build: `sh scripts/rebuild.sh`.
 
 import { Codicon, STATUSBAR_AREAS, Tip } from '@hermes/plugin-sdk'
 import { createElement as h } from 'react'
@@ -30,7 +29,7 @@ function useSummary() {
 }
 
 const openBoard = url => {
-  if (url) void window.hermesDesktop?.openExternal?.(url)
+  if (url) void api?.os.openExternal(url)
 }
 
 function Badge() {
