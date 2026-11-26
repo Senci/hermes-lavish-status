@@ -101,6 +101,11 @@ class SummaryTest(unittest.TestCase):
         self.assertEqual(out["counts"], {"block": 0, "decide": 0})
         self.assertEqual(out["board_url"], "")
 
+    def test_board_url_must_be_http(self):
+        for url in ("file:///etc/passwd", "javascript:alert(1)", "spotify:track:1"):
+            self.write({**self.doc(), "board_url": url})
+            self.assertEqual(api.read_summary(now=NOW)["board_url"], "", url)
+
     def test_route_returns_the_summary(self):
         self.write(self.doc(at=NOW))
         with mock.patch.object(api.time, "time", return_value=NOW):

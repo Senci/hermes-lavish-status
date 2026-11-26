@@ -46,7 +46,7 @@ def read_summary(now: float | None = None) -> dict:
     return {
         "fresh": True,
         "counts": {k: int(counts.get(k) or 0) for k in WAITING},
-        "board_url": board if isinstance(board, str) else "",
+        "board_url": board if isinstance(board, str) and board.startswith(("http://", "https://")) else "",
         "pages": pages,
     }
 
