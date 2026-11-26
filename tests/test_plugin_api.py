@@ -101,6 +101,25 @@ class SummaryTest(unittest.TestCase):
         self.assertEqual(out["counts"], {"block": 0, "decide": 0})
         self.assertEqual(out["board_url"], "")
 
+    def test_malformed_values_degrade_instead_of_raising(self):
+        for counts in ({"block": "x"}, {"block": [1]}, {"block": float("inf")}, {"block": -4}):
+            self.write({**self.doc(), "counts": {**counts, "decide": 3}})
+            out = api.read_summary(now=NOW)
+            self.assertEqual(out["counts"], {"block": 0, "decide": 3}, counts)
+            self.assertTrue(out["fresh"], counts)
+        for counts in ([1], "x", None):
+            self.write({**self.doc(), "counts": counts})
+            self.assertEqual(api.read_summary(now=NOW)["counts"], {"block": 0, "decide": 0}, counts)
+
+    def test_pages_that_are_not_a_list_give_no_pages(self):
+        for pages in (5, "x", {"a": 1}, None, [1, None, "x"]):
+            self.write({**self.doc(), "pages": pages})
+            self.assertEqual(api.read_summary(now=NOW)["pages"], [], pages)
+
+    def test_nan_timestamp_is_stale(self):
+        self.write('{"at": NaN, "counts": {"block": 1}}')
+        self.assertFalse(api.read_summary(now=NOW)["fresh"])
+
     def test_board_url_must_be_http(self):
         for url in ("file:///etc/passwd", "javascript:alert(1)", "spotify:track:1"):
             self.write({**self.doc(), "board_url": url})

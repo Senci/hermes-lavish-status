@@ -28,24 +28,33 @@ def _empty() -> dict:
     return {"fresh": False, "counts": {k: 0 for k in WAITING}, "board_url": "", "pages": []}
 
 
+def _count(value) -> int:
+    try:
+        return max(int(value), 0)
+    except (TypeError, ValueError, OverflowError):
+        return 0
+
+
 def read_summary(now: float | None = None) -> dict:
     try:
         raw = json.loads(_summary_path().read_text(encoding="utf-8"))
         at = float(raw["at"])
     except (OSError, ValueError, KeyError, TypeError):
         return _empty()
-    if (time.time() if now is None else now) - at > STALE_SECONDS:
+    # `not <=` also rejects a NaN timestamp, which a plain `>` would call fresh.
+    if not ((time.time() if now is None else now) - at) <= STALE_SECONDS:
         return _empty()
     counts = raw.get("counts") if isinstance(raw.get("counts"), dict) else {}
+    waiting = raw.get("pages") if isinstance(raw.get("pages"), list) else []
     pages = [
         {"key": p.get("key"), "url": p.get("url"), "title": p.get("title"), "attn": p["attn"]}
-        for p in raw.get("pages") or []
+        for p in waiting
         if isinstance(p, dict) and p.get("attn") in WAITING
     ]
     board = raw.get("board_url")
     return {
         "fresh": True,
-        "counts": {k: int(counts.get(k) or 0) for k in WAITING},
+        "counts": {k: _count(counts.get(k)) for k in WAITING},
         "board_url": board if isinstance(board, str) and board.startswith(("http://", "https://")) else "",
         "pages": pages,
     }
